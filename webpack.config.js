@@ -1,5 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
+var TerserPlugin = require('terser-webpack-plugin')
+var VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -71,10 +73,18 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins: [
+    new VueLoaderPlugin()
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {
+  module.optimization = {
+    minimizer: [
+      new TerserPlugin()
+    ]
+  }
   module.exports.entry = './src/install.js'
   module.exports.output = {
     path: path.resolve(__dirname, './lib/'),
@@ -90,12 +100,6 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
       }
     }),
     new webpack.LoaderOptionsPlugin({
