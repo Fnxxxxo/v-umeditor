@@ -1,7 +1,7 @@
 {
   "name": "@smart-marketing/v-umeditor",
   "description": "UMeditor(ueditor的mini版)的Vue版本",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "author": "Jake <jake.laoyu@gmail.com>",
   "license": "MIT",
   "main": "lib/vUeditor.min.js",
